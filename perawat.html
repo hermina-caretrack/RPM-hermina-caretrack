@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Perawat – Hermina CareTrack</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f7f6fb;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 24px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 28px 16px 18px;
+    }
+
+    .header img {
+      width: 70px;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 700;
+      color: #5E3A8C;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .table-wrapper {
+      max-height: 70vh;
+      overflow-y: auto;
+      margin-top: 20px;
+      border-radius: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    th {
+      background: #6A4C93;
+      color: #fff;
+      position: sticky;
+      top: 0;
+    }
+
+    tr:nth-child(even) {
+      background: #faf8fe;
+    }
+
+    .sbar-input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 13px;
+      box-sizing: border-box;
+    }
+
+    .label-sbar {
+      font-weight: 700;
+      margin-top: 12px;
+      display: block;
+      color: #5E3A8C;
+      text-align: left;
+    }
+
+    .warning {
+      color: #d32f2f;
+      font-size: 12px;
+      margin-top: 6px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="app-dashboard">
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="logo.png" alt="Logo RS Hermina">
+    <h1 class="title">Dashboard Perawat</h1>
+    <p class="subtitle">
+      Hermina CareTrack – Remote Patient Monitoring<br>
+      Pasien Pasca Kemoterapi
+    </p>
+  </div>
+
+  <!-- TABEL -->
+
+<div class="tab-container">
+  <button id="tabAktif" class="active" onclick="setTab('aktif')">
+    🚨 Aktif
+  </button>
+
+  <button id="tabRiwayat" onclick="setTab('riwayat')">
+    📁 Riwayat
+  </button>
+</div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Waktu</th>
+          <th>Nama</th>
+          <th>MRN</th>
+          <th>Hari</th>
+          <th>Status SBAR</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="data"></tbody>
+    </table>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <p style="font-size:11px;color:#999;text-align:center;margin-top:24px;line-height:1.5">
+    Hermina CareTrack merupakan alat bantu komunikasi klinis antar tenaga kesehatan
+    dan <b>bukan pengganti</b> keputusan medis dokter.
+  </p>
+
+</div>
+
+<script src="config.js"></script>
+<script src="perawat_v2.js"></script>
+</body>
+</html>

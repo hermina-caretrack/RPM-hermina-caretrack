@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Dokter – Hermina CareTrack</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* ===============================
+   DOKTER MODE – LIGHT & DARK
+================================ */
+.dokter-mode {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* CSS variables */
+:root {
+  --bg: #f7f6fb;
+  --card: #ffffff;
+  --text: #2b2b2b;
+  --muted: #777;
+  --accent: #6A4C93;
+  --input-bg: #faf8fe;
+  --border: #dccdf1;
+  --shadow: 0 14px 35px rgba(0,0,0,0.08);
+}
+
+.dokter-mode.dark {
+  --bg: #121212;
+  --card: #1e1e1e;
+  --text: #eaeaea;
+  --muted: #aaa;
+  --accent: #b69adf;
+  --input-bg: #2a2a2a;
+  --border: #3a3a3a;
+  --shadow: 0 14px 35px rgba(0,0,0,0.6);
+}
+
+.dokter-card {
+  max-width: 900px;
+  margin: 20px auto 40px;
+  background: var(--card);
+  border-radius: 18px;
+  padding: 28px 30px;
+  box-shadow: var(--shadow);
+}
+
+.header {
+  text-align: center;
+  padding: 24px 16px 10px;
+}
+
+.header img {
+  width: 70px;
+  margin-bottom: 8px;
+}
+
+.title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 14px;
+}
+
+input, select, textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  font-size: 14px;
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+#sbarText {
+  height: 320px;
+  font-family: Consolas, monospace;
+  background: linear-gradient(135deg, var(--input-bg), transparent);
+}
+
+/* === AUTO HIGHLIGHT ADVICE BELUM DIISI === */
+#adviceDokter.highlight {
+  border: 2px solid #d32f2f;
+  background: rgba(211,47,47,0.08);
+}
+
+/* tombol */
+button.primary {
+  margin-top: 22px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent), #8e6bcf);
+  color: #fff;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+button.primary:hover {
+  opacity: .95;
+}
+
+/* darkmode toggle */
+.toggle-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.toggle-wrap button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body class="app-dashboard dokter-mode">
+
+<div class="container">
+
+  <div class="header">
+    <img src="logo.png" alt="Logo RS Hermina">
+    <h1 class="title">Dashboard Dokter</h1>
+    <p class="subtitle">
+      Review SBAR & Clinical Recommendation<br>
+      Hermina CareTrack
+    </p>
+  </div>
+
+  <div class="dokter-card">
+
+    <div class="toggle-wrap">
+      <button onclick="toggleDark()">🌙 / ☀️</button>
+    </div>
+
+    <label>Pilih SBAR Pasien</label>
+    <select id="pilihPasien"></select>
+
+    <label>Nama Dokter</label>
+<select id="namaDokter">
+  <option value="">-- Pilih Dokter --</option>
+</select>
+
+
+    <label>SBAR (Ringkasan dari Perawat)</label>
+    <textarea id="sbarText" readonly></textarea>
+
+    <label>R (Recommendation) / Advice Dokter</label>
+    <textarea
+      id="adviceDokter"
+      placeholder="Tuliskan instruksi tindak lanjut klinis…"
+      oninput="checkAdvice()"
+    ></textarea>
+
+    <button class="primary" onclick="simpanAdvice()">💾 Simpan & Kirim Advice</button>
+
+  </div>
+
+</div>
+
+<script src="config.js"></script>
+<script src="dokter.js"></script>
+
+<script>
+/* ===============================
+   DARK MODE (ingat pilihan)
+================================ */
+const body = document.body;
+const savedTheme = localStorage.getItem("dokter_theme");
+
+if (
+  savedTheme === "dark" ||
+  (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+) {
+  body.classList.add("dark");
+}
+
+function toggleDark() {
+  body.classList.toggle("dark");
+  localStorage.setItem(
+    "dokter_theme",
+    body.classList.contains("dark") ? "dark" : "light"
+  );
+}
+
+/* ===============================
+   AUTO HIGHLIGHT ADVICE
+================================ */
+function checkAdvice() {
+  const adv = document.getElementById("adviceDokter");
+  adv.classList.toggle("highlight", adv.value.trim() === "");
+}
+
+// cek awal saat pilih SBAR
+document.getElementById("pilihPasien").addEventListener("change", () => {
+  setTimeout(checkAdvice, 200);
+});
+</script>
+
+</body>
+</html>

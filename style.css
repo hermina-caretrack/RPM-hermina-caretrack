@@ -1,0 +1,474 @@
+/* =================================================
+   GLOBAL RESET
+================================================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, Arial, sans-serif;
+}
+
+/* =================================================
+   PASIEN MODE
+================================================= */
+.app-pasien {
+  background: linear-gradient(135deg, #f6f0fb, #ffffff);
+  padding: 20px;
+}
+
+.app-pasien .container {
+  max-width: 480px;
+  margin: auto;
+  background: #ffffff;
+  padding: 26px 22px;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(106, 76, 147, 0.18);
+}
+
+.app-pasien .header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.app-pasien .header img {
+  width: 78px;
+  margin-bottom: 10px;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.app-pasien h2 {
+  color: #6A4C93;
+  margin: 0;
+  font-weight: 800;
+}
+
+.app-pasien label {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b3b66;
+}
+
+.app-pasien input,
+.app-pasien select,
+.app-pasien textarea {
+  width: 100%;
+  padding: 11px 12px;
+  margin-top: 6px;
+  border-radius: 12px;
+  border: 1px solid #dccdf1;
+  font-size: 14px;
+  background: #faf7fd;
+  transition: 0.25s;
+}
+
+.app-pasien input:focus,
+.app-pasien select:focus,
+.app-pasien textarea:focus {
+  border-color: #6A4C93;
+  box-shadow: 0 0 0 2px rgba(182,154,223,0.25);
+  outline: none;
+  background: #fff;
+}
+
+.app-pasien .section {
+  margin-top: 22px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #ede5f6, #f8f3fd);
+  border-radius: 12px;
+  font-weight: 700;
+  color: #6A4C93;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-pasien .section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+  animation: shimmerMove 4s infinite;
+}
+
+.app-pasien button {
+  width: 100%;
+  background: linear-gradient(135deg, #6A4C93, #8e6bcf);
+  color: white;
+  padding: 15px;
+  margin-top: 22px;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(106, 76, 147, 0.35);
+}
+
+/* =================================================
+   DASHBOARD MODE (PERAWAT & DOKTER)
+================================================= */
+.app-dashboard {
+  background: #f7f6fb;
+}
+
+.app-dashboard .container {
+  max-width: 1100px;
+  width: 95%;
+  margin: 30px auto;
+  padding: 30px;
+}
+
+.app-dashboard .header {
+  text-align: center;
+  padding: 28px 16px 18px;
+}
+
+.app-dashboard .header img {
+  width: 70px;
+  margin-bottom: 10px;
+}
+
+.app-dashboard .title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #5E3A8C;
+}
+
+.app-dashboard .subtitle {
+  font-size: 14px;
+  color: #777;
+}
+
+.app-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.app-dashboard th,
+.app-dashboard td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
+.app-dashboard th {
+  background: #6A4C93;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.app-dashboard tr:nth-child(even) {
+  background: #faf8fe;
+}
+
+.app-dashboard textarea,
+.app-dashboard input,
+.app-dashboard select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #dccdf1;
+  font-size: 14px;
+}
+/* ===== SBAR FULL WIDTH PANEL ===== */
+.app-dashboard .sbar-row td {
+  padding: 0;
+  background: #f7f6fb;
+}
+
+.app-dashboard .sbar-panel {
+  background: #ffffff;
+  margin: 16px;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.app-dashboard .sbar-header {
+  font-weight: 700;
+  color: #5E3A8C;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.app-dashboard .sbar-textarea {
+  width: 100%;
+  height: 480px;      /* 🔥 SBAR JADI GEDE */
+  resize: vertical;
+  font-family: Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  border-radius: 10px;
+  border: 1px solid #dccdf1;
+  padding: 16px;
+  background: #faf8fe;
+}
+
+.app-dashboard .sbar-actions {
+  margin-top: 14px;
+  text-align: right;
+}
+.app-dashboard .sbar-actions button {
+  background: #6A4C93;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.app-dashboard .sbar-actions button:hover {
+  opacity: 0.9;
+}
+/* =================================================
+   DOKTER MODE – UI POLISH
+================================================= */
+.dokter-mode .doctor-card {
+  max-width: 900px;
+  margin: 20px auto 40px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 28px 30px;
+  box-shadow: 0 14px 35px rgba(0,0,0,0.08);
+}
+
+.dokter-mode .doctor-form label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: #5E3A8C;
+  font-size: 14px;
+}
+
+.dokter-mode .doctor-form input,
+.dokter-mode .doctor-form select,
+.dokter-mode .doctor-form textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #dccdf1;
+  padding: 12px 14px;
+  font-size: 14px;
+  background: #faf8fe;
+}
+
+.dokter-mode #sbarText {
+  height: 320px;
+  font-family: Consolas, monospace;
+  line-height: 1.6;
+  background: #f7f4fc;
+}
+
+.dokter-mode #adviceDokter {
+  height: 180px;
+  font-family: system-ui;
+  background: #ffffff;
+}
+
+.dokter-mode button {
+  margin-top: 22px;
+  width: 100%;
+  background: linear-gradient(135deg, #6A4C93, #8e6bcf);
+  color: #fff;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(106,76,147,.35);
+}
+
+.dokter-mode button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(106,76,147,.45);
+}
+.dokter-mode .sbar-toggle {
+  cursor: pointer;
+  padding: 10px 14px;
+  background: #f3ecfb;
+  border-radius: 10px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.dokter-mode.dark .sbar-toggle {
+  background: #2a2a2a;
+}
+
+/* =================================================
+   MODAL (GLOBAL)
+================================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px 22px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+}
+
+/* =================================================
+   ANIMATION
+================================================= */
+@keyframes shimmer {
+  0% { filter: drop-shadow(0 0 0 rgba(142,107,207,0.3)); }
+  50% { filter: drop-shadow(0 0 10px rgba(142,107,207,0.6)); }
+  100% { filter: drop-shadow(0 0 0 rgba(142,107,207,0.3)); }
+}
+
+@keyframes shimmerMove {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+.ctcae {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.ctcae-red {
+  background: #fdecea;
+  color: #d32f2f;
+}
+
+.ctcae-yellow {
+  background: #fff8e1;
+  color: #f9a825;
+}
+
+.ctcae-green {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.tab-wrapper {
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 8px 16px;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-right: 6px;
+}
+
+.tab.active {
+  background: #6A4C93;
+  color: white;
+}
+/* KHUSUS FORM PASIEN SAJA */
+.form-pasien {
+  font-size: 16px;
+}
+
+.form-pasien .container {
+  width: 95%;
+  max-width: 500px;
+  margin: auto;
+}
+
+.form-pasien input,
+.form-pasien select,
+.form-pasien textarea,
+.form-pasien button {
+  width: 100%;
+  font-size: 16px;
+  padding: 12px;
+}
+.form-pasien {
+  font-size: 16px;
+}
+
+.form-pasien .container {
+  width: 95%;
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+}
+/* ===============================
+   PASIEN MODE – SPACING PREMIUM
+================================ */
+
+.app-pasien .container {
+  max-width: 650px;
+  padding: 28px;
+}
+
+.app-pasien label {
+  margin-top: 24px;
+  font-size: 16px;
+}
+
+.app-pasien input,
+.app-pasien select {
+  padding: 16px 18px;
+  font-size: 16px;
+}
+
+.app-pasien .section {
+  margin-top: 32px;
+  margin-bottom: 16px;
+  padding: 16px 18px;
+  font-size: 17px;
+}
+
+.app-pasien button {
+  padding: 18px;
+  font-size: 18px;
+  margin-top: 32px;
+}
+/* ===============================
+   FULLSCREEN MOBILE FIX
+================================ */
+
+@media (max-width: 768px) {
+
+  body {
+    padding: 0;
+  }
+
+  .container {
+    max-width: 100%;
+    width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    padding: 20px;
+  }
+
+}

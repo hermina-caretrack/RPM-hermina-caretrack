@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- WAJIB supaya normal di HP -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Hermina CareTrack</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="app-pasien">
+<div class="container">
+
+  <!-- ===== HEADER ===== -->
+  <div class="header">
+    <img src="logo.png" alt="Hermina Logo">
+    <h2>Hermina CareTrack</h2>
+    <p>
+      Pemantauan Kondisi Pasien Pasca Kemoterapi<br>
+      <b>(Hari ke-1 sampai ke-7 setelah terapi)</b>
+    </p>
+    <p class="note">
+      Penilaian efek samping mengacu pada CTCAE versi 5.0 (NCI).
+    </p>
+  </div>
+
+  <!-- ===== IDENTITAS PASIEN ===== -->
+  <label>Nama Pasien</label>
+  <input id="nama" placeholder="Contoh: Budi Santoso">
+
+  <label>MRN (Nomor Rekam Medis)</label>
+  <input id="mrn" placeholder="Contoh: 00123456">
+
+  <label>No. Telepon Aktif (WhatsApp)</label>
+  <input id="telp" type="tel" placeholder="Contoh: 081234567890">
+
+  <label>Hari ke-berapa setelah kemoterapi?</label>
+  <input id="hari" type="number" min="1" max="30" placeholder="Contoh: 3">
+
+  <p style="font-size:12px;color:#666;margin-top:6px;line-height:1.5">
+    Pemantauan rutin dilakukan pada <b>hari ke-1 sampai hari ke-7</b> setelah kemoterapi.
+    <br>
+    Apabila keluhan muncul <b>setelah hari ke-7</b>, laporan tetap dapat dikirim dan
+    akan ditindaklanjuti sesuai kebijakan Rumah Sakit.
+  </p>
+
+  <!-- ================= CTCAE FORM ================= -->
+
+  <div class="section">🤢 MUAL</div>
+  <select id="mual_ctcae">
+    <option value="">-- Pilih --</option>
+    <option value="1">Tidak ada</option>
+    <option value="2">Nafsu makan turun</option>
+    <option value="3">Sulit makan / minum</option>
+    <option value="4">Tidak bisa makan / minum sama sekali</option>
+  </select>
+
+  <div class="section">🤮 MUNTAH (24 jam terakhir)</div>
+  <select id="muntah_ctcae">
+    <option value="">-- Pilih --</option>
+    <option value="1">Tidak muntah</option>
+    <option value="2">1–2 kali</option>
+    <option value="3">3–5 kali</option>
+    <option value="4">≥ 6 kali</option>
+  </select>
+
+  <!-- ===== DEMAM (REVISI) ===== -->
+  <div class="section">🌡️ DEMAM</div>
+
+  <label style="margin-top:8px">Apakah Anda merasa demam / badan terasa panas?</label>
+  <select id="demam_gejala">
+    <option value="">-- Pilih --</option>
+    <option value="1">Tidak</option>
+    <option value="2">Ya, terasa hangat</option>
+    <option value="3">Ya, demam tinggi / menggigil</option>
+  </select>
+
+  <label style="margin-top:10px">
+    Jika memiliki termometer (opsional), berapa suhu tubuh Anda?
+  </label>
+  <input id="demam_suhu" type="number" step="0.1" placeholder="Contoh: 38.2">
+
+  <p style="font-size:11px;color:#777;margin-top:6px">
+    *Tidak memiliki termometer tidak menjadi masalah.
+  </p>
+
+  <div class="section">🚽 DIARE</div>
+  <select id="diare">
+    <option value="">-- Pilih --</option>
+    <option value="1">Tidak ada</option>
+    <option value="2">&lt; 4x / hari</option>
+    <option value="3">4–6x / hari</option>
+    <option value="4">≥ 7x / hari</option>
+  </select>
+
+  <div class="section">😴 KELELAHAN</div>
+  <select id="lelah_ctcae">
+    <option value="">-- Pilih --</option>
+    <option value="1">Ringan</option>
+    <option value="2">Aktivitas terbatas</option>
+    <option value="3">Tidak bisa aktivitas</option>
+    <option value="4">Terbaring terus</option>
+  </select>
+
+  <div class="section">💉 LOKASI INFUS</div>
+  <select id="infus">
+    <option value="">-- Pilih --</option>
+    <option value="1">Normal</option>
+    <option value="2">Nyeri ringan</option>
+    <option value="3">Bengkak / nyeri</option>
+    <option value="4">Kemerahan hebat / lepuh</option>
+  </select>
+
+  <!-- ===== STATUS PASIEN ===== -->
+  <div class="section">📊 STATUS PASIEN</div>
+  <div id="status" style="font-weight:bold">-</div>
+  <div id="aksi"></div>
+
+  <button type="button" onclick="kirimData()">Kirim Laporan</button>
+
+  <!-- ===== DISCLAIMER ===== -->
+  <p style="font-size:12px;color:#777;margin-top:12px;text-align:center;line-height:1.5">
+    Aplikasi ini digunakan untuk membantu pemantauan kondisi pasien
+    pada <b>hari ke-1 sampai ke-7 setelah kemoterapi</b>.
+    <br><br>
+    Apabila keluhan muncul atau memberat <b>di luar periode tersebut</b>,
+    pasien tetap dianjurkan segera menghubungi Rumah Sakit atau datang ke IGD terdekat.
+    <br><br>
+    Aplikasi ini <b>bukan pengganti</b> pemeriksaan langsung oleh tenaga medis.
+  </p>
+
+</div>
+
+<!-- ===== MODAL ===== -->
+<div id="modalOverlay" class="modal-overlay">
+  <div class="modal-box">
+    <h3>Laporan Terkirim</h3>
+    <p id="modalMessage"></p>
+    <button onclick="tutupModal()">Baik, saya mengerti</button>
+  </div>
+</div>
+
+<!-- ===== SCRIPT ===== -->
+<script src="config.js"></script>
+<script src="pasien.js"></script>
+
+</body>
+</html>
