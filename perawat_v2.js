@@ -26,6 +26,31 @@ function formatWA(no) {
 }
 
 
+/* ===============================
+   GRADE → TEXT MAPPING
+================================ */
+function interpretMual(grade) {
+  const g = Number(grade || 0);
+  const map = {
+    1: "Tidak ada",
+    2: "Nafsu makan turun",
+    3: "Sulit makan / minum",
+    4: "Tidak bisa makan / minum sama sekali"
+  };
+  return map[g] || "Tidak ada data";
+}
+
+function interpretMuntah(grade) {
+  const g = Number(grade || 0);
+  const map = {
+    1: "Tidak muntah",
+    2: "1–2 kali (24 jam terakhir)",
+    3: "3–5 kali (24 jam terakhir)",
+    4: "≥ 6 kali (24 jam terakhir)"
+  };
+  return map[g] || "Tidak ada data";
+}
+
 function interpretDemam(p) {
   const g = Number(p.demam_gejala || 0);
   const s = Number(p.demam_suhu || 0);
@@ -34,6 +59,39 @@ function interpretDemam(p) {
   if (g === 2) return "Badan terasa hangat";
   if (g === 1) return "Tidak demam";
   return "Tidak ada data";
+}
+
+function interpretDiare(grade) {
+  const g = Number(grade || 0);
+  const map = {
+    1: "Tidak ada",
+    2: "< 4x / hari",
+    3: "4–6x / hari",
+    4: "≥ 7x / hari"
+  };
+  return map[g] || "Tidak ada data";
+}
+
+function interpretKelelahan(grade) {
+  const g = Number(grade || 0);
+  const map = {
+    1: "Ringan",
+    2: "Aktivitas terbatas",
+    3: "Tidak bisa aktivitas",
+    4: "Terbaring terus"
+  };
+  return map[g] || "Tidak ada data";
+}
+
+function interpretInfus(grade) {
+  const g = Number(grade || 0);
+  const map = {
+    1: "Normal",
+    2: "Nyeri ringan",
+    3: "Bengkak / nyeri",
+    4: "Kemerahan hebat / lepuh"
+  };
+  return map[g] || "Tidak ada data";
 }
 
 function statusBadge(p) {
@@ -150,12 +208,12 @@ Pasien ${safe(p.nama)}, No. Rekam Medis ${safe(p.mrn)}
 Hari ke-${safe(p.hari)} pasca kemoterapi.
 
 B (Background):
-- Mual        : ${safe(p.mual)}
-- Muntah      : ${safe(p.muntah)}
+- Mual        : ${interpretMual(p.mual)}
+- Muntah      : ${interpretMuntah(p.muntah)}
 - Demam       : ${interpretDemam(p)}
-- Diare       : ${safe(p.diare)}
-- Kelelahan   : ${safe(p.kelelahan)}
-- Lokasi infus: ${safe(p.infus)}
+- Diare       : ${interpretDiare(p.diare)}
+- Kelelahan   : ${interpretKelelahan(p.kelelahan)}
+- Lokasi infus: ${interpretInfus(p.infus)}
 
 A (Assessment):
 Efek samping kemoterapi sesuai CTCAE Grade ${safe(p.maxGrade)}

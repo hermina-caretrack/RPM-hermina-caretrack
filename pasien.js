@@ -138,9 +138,17 @@ function evaluasiCTCAE() {
 });
 
 /* ===============================
-   SUBMIT DATA
+   SUBMIT DATA (DENGAN ANTI-DOUBLE SUBMIT)
 ================================ */
+let isSubmitting = false;
+
 window.kirimData = function () {
+
+  // 🔒 PREVENT DOUBLE SUBMIT
+  if (isSubmitting) {
+    alert("Data sedang dikirim, mohon tunggu...");
+    return;
+  }
 
   // VALIDASI IDENTITAS
   const nama = getValue("nama");
@@ -184,6 +192,15 @@ if (!isValidPhone(telp)) {
 
   const maxGrade = Math.max(...grades);
 
+  /* ===== DISABLE BUTTON & SET FLAG ===== */
+  isSubmitting = true;
+  const btn = document.querySelector('button[onclick="kirimData()"]');
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "⏳ Mengirim data...";
+  btn.style.opacity = "0.6";
+  btn.style.cursor = "not-allowed";
+
   /* ===== KIRIM DATA ===== */
   const formData = new FormData();
   formData.append("nama", nama);
@@ -216,10 +233,26 @@ fetch(API, {
   }
 
   tampilkanModalPesan();
+  
+  // ✅ RESET BUTTON SETELAH 3 DETIK (COOLDOWN)
+  setTimeout(() => {
+    isSubmitting = false;
+    btn.disabled = false;
+    btn.textContent = originalText;
+    btn.style.opacity = "1";
+    btn.style.cursor = "pointer";
+  }, 3000);
 })
 .catch(err => {
   console.error(err);
   alert("Laporan gagal dikirim. Periksa koneksi internet lalu coba kembali.");
+  
+  // RESTORE BUTTON ON ERROR
+  isSubmitting = false;
+  btn.disabled = false;
+  btn.textContent = originalText;
+  btn.style.opacity = "1";
+  btn.style.cursor = "pointer";
 });
 
 };
